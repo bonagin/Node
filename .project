@@ -17,11 +17,4 @@
 		<nature>org.eclipse.cdt.core.ccnature</nature>
 		<nature>org.eclipse.cdt.arduino.core.arduinoNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>libraries/ESP32_BLE_Arduino</name>
-			<type>2</type>
-			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/ESP32_BLE_Arduino/1.0.1</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

@@ -12,9 +12,9 @@
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <Update.h>
-#include <BLEDevice.h>
-#include <BLEUtils.h>
-#include <BLEServer.h>
+//#include <BLEDevice.h>
+//#include <BLEUtils.h>
+//#include <BLEServer.h>
 
 /* You only need to format SPIFFS the first time you run a
  test or else use the SPIFFS plugin to create a partition
@@ -23,7 +23,7 @@
 #define OPEN_TAG                0xFA
 #define CLOSE_TAG               0x7E
 #define HEADER_PACKET_BYTES     4
-#define PAYLOAD_PACKET_BYTES    6
+#define PAYLOAD_PACKET_BYTES    8
 #define TRAILER_PACKET_BYTES    4
 #define HEADER_PACKET           0xAACAEAFA
 #define UPDATE_HEADER_PACKET    0xBBCAEAFA
@@ -76,8 +76,6 @@
 #define NUMBERBYTES 4
 #define BUFFER_ALLOC_SIZE 128
 
-#define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
-#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
 
 #pragma pack(push, 1) // Disable padding
 union IOStructure {
@@ -140,13 +138,13 @@ String wifi_ssid = "Hosp3s";
 String wifi_password = "B3MYGU3$T123";
 String firmware_file = "/firmware";
 String version_file = "/version";
-String server_address = "192.168.1.10";
+String server_address = "10.0.0.8";
 String server_port = "4444";
 String serial_number;
 
 WiFiClient	g_client;
 Frame 		g_frame;
-IOStructure g_structure[MAX_IO_MODULES];
+//IOStructure g_structure[MAX_IO_MODULES];
 Status 		g_status = IDLE;
 uint8_t 	g_err_packet[4] = { 0xFA, 0x4E, 0x4F, 0x7E };
 uint8_t 	g_ack_packet[4] = { 0xFA, 0x59, 0x45, 0x7E };
@@ -205,7 +203,7 @@ void sendNodeAddress();
 void IOInit();
 int  getNodeAddress();
 int  getModuleCount();
-void loadStructure();
+void loadStructure(IOStructure *structure);
 void loadInputs();
 void packIOStructure();
 void unpackIOStructure();

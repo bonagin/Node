@@ -184,32 +184,4 @@ project/PhoneBoxNode.cpp.o: ../../PhoneBoxNode.cpp ../../PhoneBoxNode.h \
  /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/cores/esp32/MD5Builder.h \
  /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/esp32/rom/md5_hash.h \
  /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/spi_flash/esp_partition.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/spi_flash/esp_spi_flash.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLEDevice.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/bt/esp_gap_ble_api.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/bt/esp_bt_defs.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/bt/esp_gattc_api.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/bt/esp_gatt_defs.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/bt/esp_bt.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLEServer.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/bt/esp_gatts_api.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLEUUID.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/bt/esp_gatt_defs.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLEAdvertising.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/FreeRTOS.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/esp_ringbuf/freertos/ringbuf.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLECharacteristic.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLEDescriptor.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLEValue.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLEService.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLESecurity.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLEAddress.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLEClient.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLERemoteService.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLERemoteCharacteristic.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLERemoteDescriptor.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLEAdvertisedDevice.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLEScan.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLEUtils.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLEUtils.h \
- /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/libraries/BLE/src/BLEServer.h
+ /home/bongani/.arduinocdt/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/spi_flash/esp_spi_flash.h

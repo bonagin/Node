@@ -1,4 +1,3 @@
-
 #include "PhoneBoxNode.h"
 
 // See the following for generating UUIDs:
@@ -15,30 +14,10 @@ void setup() {
 	// Turn the status LED offg
 	digitalWrite(STATUS_LED_PIN, 0);
 
-	BLEInit();
+	//BLEInit();
 
 	TCPInit();
 	IOInit();
-
-//	//create a task that will be executed in the Task1code() function, with priority 1 and executed on core 0
-//	xTaskCreatePinnedToCore(ioThread, /* Task function. */
-//	"IOThread", /* name of task. */
-//	10000, /* Stack size of task */
-//	NULL, /* parameter of the task */
-//	1, /* priority of the task */
-//	&IOThread, /* Task handle to keep track of created task */
-//	0); /* pin task to core 0 */
-//	delay(500);
-//
-//	//create a task that will be executed in the Task2code() function, with priority 1 and executed on core 1
-//	xTaskCreatePinnedToCore(tcpThread, /* Task function. */
-//	"TCPThread", /* name of task. */
-//	10000, /* Stack size of task */
-//	NULL, /* parameter of the task */
-//	1, /* priority of the task */
-//	&TCPThread, /* Task handle to keep track of created task */
-//	1); /* pin task to core 1 */
-//	delay(500);
 }
 
 void loop() {
@@ -51,40 +30,12 @@ void tcpThread(void *params) {
 	}
 }
 
-void ioThread(void *params) {
-	for (;;) {
-		loadInputs();
-	}
-}
-
 void updateRetry() {
 	if (++g_retry_count > MAX_RETRY_COUNT) {
 		ESP.restart();
 	} else {
 		//timerWrite(g_timer, 0); //feed watchdog
 	}
-}
-
-void BLEInit() {
-	  BLEDevice::init("Long name works now");
-	  BLEServer *pServer = BLEDevice::createServer();
-	  BLEService *pService = pServer->createService(SERVICE_UUID);
-	  BLECharacteristic *pCharacteristic = pService->createCharacteristic(
-	                                         CHARACTERISTIC_UUID,
-	                                         BLECharacteristic::PROPERTY_READ |
-	                                         BLECharacteristic::PROPERTY_WRITE
-	                                       );
-
-	  pCharacteristic->setValue("Hello World says Neil");
-	  pService->start();
-	  // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
-	  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
-	  pAdvertising->addServiceUUID(SERVICE_UUID);
-	  pAdvertising->setScanResponse(true);
-	  pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
-	  pAdvertising->setMinPreferred(0x12);
-	  BLEDevice::startAdvertising();
-	  Serial.println("Characteristic defined! Now you can read it in your phone!");
 }
 
 void TCPInit() {
@@ -184,12 +135,6 @@ bool connectServer() {
 
 void sendNodeAddress() {
 	g_client.write(64); // Node address
-}
-
-void IORun() {
-	loadStructure();
-	delay(1000);
-
 }
 
 bool TCPRun() {
@@ -422,13 +367,13 @@ bool handlePayloadPacket() {
 	memset(g_frame.frame.payload, NULL, MAX_IO_MODULES);
 	// Loop through payload
 	for (y = 0; y < g_frame.frame.size; y++) {
-		for (x = PAYLOAD_PACKET_BYTES; x >= 0; x--) {
+		for (x = 0; x < PAYLOAD_PACKET_BYTES; x++) {
 			g_byte = g_client.read();
 			g_frame.frame.payload[y].buffer[x] = g_byte;
 		}
 	}
 
-	loadStructure();
+	loadStructure(g_frame.frame.payload);
 
 	g_frame.frame.size = moduleCount;
 	g_status = READY;
@@ -441,7 +386,7 @@ bool handlePayloadPacket() {
  *
  * The structure is made up of 24 outputs and 24 inputs
  */
-void loadStructure() {
+void loadStructure(IOStructure *structure) {
 	byte cursor = 0;       // This marks the index of each structure
 	byte structIndex = 0;  // Indexes the number of structures available
 	byte inputIndex = 0;
@@ -450,39 +395,45 @@ void loadStructure() {
 	short bit = 0;
 
 //	// Resset structure
-//	//memset(&g_structure, NULL, sizeof(g_structure));
-//
-//	// Load all input data from storage registers.
-//	shiftLoad();
-//
-//	// Loop through the connected modules
-//	for (byte x = 0; x < moduleCount; x++) {
-//		g_structure[x].payload.input.buffer = 0;
-//		// loop through the IOs
-//		for (byte y = 0; y < OUTPUT_COUNT; y++) {
-//			bit = (OUTPUT_COUNT * x) + y;
-//
-//			// Set output value
-//			if (g_structure[x].payload.output.buffer & (1 << bit)) {
-//				digitalWrite(MSR_DATA_OUT, HIGH);
-//			} else {
-//				digitalWrite(MSR_DATA_OUT, LOW);
-//			}
-//
-//			// Shift the register
-//			shiftClock();
-//
-//			if (y < INPUT_COUNT) {
-//				// Read input
-//				if (digitalRead(MSR_DATA_IN) && !setupMode) {
-//					bitSet(g_structure[x].payload.input.buffer, bit);
-//				}
-//			}
-//		}
-//	}
-//
-//		// Latch all shiter data to and from storage registers
-//		latchClock();
+	//memset(&structure, NULL, sizeof(structure));
+
+	// Load all input data from storage registers.
+	shiftLoad();
+	Serial.print("Outputs : ");
+	Serial.println(structure[0].payload.outputs, BIN);
+
+	// Loop through the connected modules
+	for (byte x = 0; x < moduleCount; x++) {
+		structure[x].payload.inputs = 0;
+		// loop through the IOs
+		for (byte y = 0; y < OUTPUT_COUNT; y++) {
+			bit = (OUTPUT_COUNT * x) + y;
+
+			// Set output value
+			if (structure[x].payload.outputs & (1 << bit)) {
+				digitalWrite(MSR_DATA_OUT, HIGH);
+			} else {
+				digitalWrite(MSR_DATA_OUT, LOW);
+			}
+
+			if (y < INPUT_COUNT) {
+				// Read input
+				if (digitalRead(MSR_DATA_IN)) {
+					bitSet(structure[x].payload.inputs, bit);
+				}
+			}
+
+			// Shift the register
+			shiftClock();
+		}
+	}
+
+	Serial.print("Inputs : ");
+	Serial.println(structure[0].payload.inputs, BIN);
+	Serial.println("\n\n");
+
+	// Latch all shiter data to and from storage registers
+	latchClock();
 }
 
 bool processPayload() {
