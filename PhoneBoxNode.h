@@ -61,12 +61,12 @@
 #define MAX_REG_SIZE   		16	// Maixmum holding register size.
 
 //
-#define MAX_MODULE_CNT 		3     // Maximum modules per blue pill
-#define IO_COUNT	   		40    // IO structure size
-#define INPUT_COUNT    		16    // Number of inputs per io card
-#define OUTPUT_COUNT   		24    // Number of outputs per IO card
-#define MAX_MODULE_CNT 		10    // Total number of modules connected
-#define CHARGE_DETECT  		4     // Number of times the charge pin has to change to be considered charging
+#define MAX_MODULE_CNT 		3 // Maximum modules per blue pill
+#define IO_COUNT	   		40 // IO structure size
+#define INPUT_COUNT    		16 // Number of inputs per io card
+#define OUTPUT_COUNT   		24 // Number of outputs per IO card
+#define MAX_MODULE_CNT 		10 // Total number of modules connected
+#define CHARGE_DETECT  		4  // Number of times the charge pin has to change to be considered charging
 
 #define TOTAL_INPUT_COUNT INPUT_COUNT * MAX_MODULE_CNT // Total number of all avilable inputs
 
@@ -138,7 +138,7 @@ String wifi_ssid = "Hosp3s";
 String wifi_password = "B3MYGU3$T123";
 String firmware_file = "/firmware";
 String version_file = "/version";
-String server_address = "10.0.0.8";
+String server_address = "10.0.0.12";
 String server_port = "4444";
 String serial_number;
 

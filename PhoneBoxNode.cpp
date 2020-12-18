@@ -1,8 +1,5 @@
 #include "PhoneBoxNode.h"
 
-// See the following for generating UUIDs:
-// https://www.uuidgenerator.net/
-
 void setup() {
 	// Setup serial
 	Serial.begin(115200);
@@ -350,7 +347,12 @@ bool handlePayloadPacket() {
 		g_frame.frame.size |= (g_byte << (8 * x));
 	}
 
+	digitalWrite(BUZZER, HIGH);
+	digitalWrite(LIGHT, HIGH);
+
 	// Get buzzer value
+	int buzzer = g_client.read();
+	//Serial.println(String("Buzzer : ") + buzzer);
 	if (g_client.read() == 0) {
 		digitalWrite(BUZZER, LOW);
 	} else {
@@ -358,6 +360,8 @@ bool handlePayloadPacket() {
 	}
 
 	// Get light value
+	int alarm = g_client.read();
+	//Serial.println(String("Light : ") + alarm);
 	if (g_client.read() == 0) {
 		digitalWrite(LIGHT, LOW);
 	} else {
